@@ -38,10 +38,13 @@ public class MainActivityFragment extends Fragment {
     private MoviePosterAdapter moviesAdapter;
     private String sortType =  "sort_by=popularity.desc";
 
-
     public MainActivityFragment() {
     }
 
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("savedText", sortType);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,9 +82,13 @@ public class MainActivityFragment extends Fragment {
 
     }
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        if (savedInstanceState != null)
+            sortType = savedInstanceState.getString("savedText");
         Display display = getActivity().getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
@@ -103,6 +110,7 @@ public class MainActivityFragment extends Fragment {
         gridView.setAdapter(moviesAdapter);
         FetchMovies moviesTask = new FetchMovies();
         moviesTask.execute();
+
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -116,6 +124,8 @@ public class MainActivityFragment extends Fragment {
         });
         return rootView;
     }
+
+
 
 
     public class FetchMovies extends AsyncTask<Void, Void, Movie[]> {
