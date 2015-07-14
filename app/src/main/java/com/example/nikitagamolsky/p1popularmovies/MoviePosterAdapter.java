@@ -9,17 +9,20 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class MoviePosterAdapter extends ArrayAdapter<Movie> {
+    public ArrayList<Movie> movieList;
 
-    public MoviePosterAdapter(Activity context, List<Movie> movieList) {
+    public MoviePosterAdapter(Activity context, ArrayList<Movie> movieList) {
         // Here, we initialize the ArrayAdapter's internal storage for the context and the list.
         // the second argument is used when the ArrayAdapter is populating a single TextView.
         // Because this is a custom adapter for two TextViews and an ImageView, the adapter is not
         // going to use this second argument, so it can be any value. Here, we used 0.
         super(context, 0, movieList);
     }
+
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {

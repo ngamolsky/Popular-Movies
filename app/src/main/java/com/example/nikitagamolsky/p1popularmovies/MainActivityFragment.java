@@ -27,8 +27,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 
 /**
@@ -37,14 +35,12 @@ import java.util.List;
 public class MainActivityFragment extends Fragment {
     private MoviePosterAdapter moviesAdapter;
     private String sortType =  "sort_by=popularity.desc";
+    private ArrayList<Movie> movieList = new ArrayList<Movie>();
 
     public MainActivityFragment() {
     }
 
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putString("savedText", sortType);
-    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -87,14 +83,23 @@ public class MainActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        if (savedInstanceState != null)
-            sortType = savedInstanceState.getString("savedText");
+        if (savedInstanceState == null ) {
+            FetchMovies moviesTask = new FetchMovies();
+            moviesTask.execute();
+        }
+        else {
+            movieList = savedInstanceState.getParcelableArrayList("movieList");
+        }
+
+
+
+
+
+        
         Display display = getActivity().getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
         int width = size.x;
-        Movie movie = new Movie();
-        List<Movie> movieList = new ArrayList<Movie>(Arrays.asList(movie));
         moviesAdapter = new MoviePosterAdapter(getActivity(), movieList);
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         GridView gridView = (GridView) rootView.findViewById(R.id.gridview);
@@ -108,8 +113,6 @@ public class MainActivityFragment extends Fragment {
             gridView.setColumnWidth(width/5);
         }
         gridView.setAdapter(moviesAdapter);
-        FetchMovies moviesTask = new FetchMovies();
-        moviesTask.execute();
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -126,7 +129,11 @@ public class MainActivityFragment extends Fragment {
     }
 
 
-
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putString("savedText", sortType);
+        outState.putParcelableArrayList("movieList", movieList);
+        super.onSaveInstanceState(outState);
+    }
 
     public class FetchMovies extends AsyncTask<Void, Void, Movie[]> {
         private final String LOG_TAG = FetchMovies.class.getSimpleName();
@@ -236,6 +243,8 @@ public class MainActivityFragment extends Fragment {
 
                 moviesAdapter.clear();
                 moviesAdapter.addAll(result);
+                moviesAdapter.notifyDataSetChanged();
+
 
                 // New data is back from the server.  Hooray!
             }

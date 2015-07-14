@@ -1,9 +1,12 @@
 package com.example.nikitagamolsky.p1popularmovies;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by nikitagamolsky on 7/8/15.
  */
-public class Movie {
+public class Movie implements Parcelable {
     String image;
     String original_title;
     String synopsis;
@@ -11,9 +14,9 @@ public class Movie {
     String release_date;
     int numOfParameters;
 
-
-    public Movie(){
+    public Movie() {
         super();
+
     }
 
     public Movie(String image, String original_title, String synopsis, String release_date, String user_rating) {
@@ -26,8 +29,36 @@ public class Movie {
         this.numOfParameters = 5;
     }
 
+    private Movie(Parcel in) {
+        image = in.readString();
+        original_title = in.readString();
+        synopsis = in.readString();
+        user_rating = in.readString();
+        release_date = in.readString();
+    }
 
+    public int describeContents() {
+        return 0;
+    }
 
+    public void writeToParcel(Parcel out, int flags) {
+        out.writeString(image);
+        out.writeString(original_title);
+        out.writeString(synopsis);
+        out.writeString(release_date);
+        out.writeString(user_rating );
+
+    }
+
+    public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
+        public Movie createFromParcel(Parcel in) {
+            return new Movie(in);
+        }
+
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
 
     public String[] movieToArray(){
         String[] currentMovieArray = new String[this.numOfParameters];
@@ -40,4 +71,6 @@ public class Movie {
 
         return currentMovieArray;
     }
+
+
 }
