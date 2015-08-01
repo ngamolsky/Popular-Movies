@@ -11,4 +11,13 @@
     <string name="user_rating">User Rating</string>
     <string name="synopsis">Synopsis</string>
     <string name="chill_posters">Chill Posters</string>
+    <string name="title_activity_review">Reviews</string>
+    <string name="read_reviews">Read Reviews</string>
+    <string name="favorites">Favorites</string>
+    <string name="list_favorites">List Favorites</string>
+    <string name="reviews">Reviews</string>
+    <string name="play_trailer">Play Trailer</string>
+    <string name="no_movie_selected">No Movie Selected</string>
+    <string name="share">Share</string>
+    <string name="poster_description">Poster View</string>
 </resources>

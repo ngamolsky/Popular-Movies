@@ -1,27 +1,23 @@
 package com.example.nikitagamolsky.p1popularmovies;
 
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MovieDetailActivity extends AppCompatActivity {
+public class ReviewActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_movie_detail);
-        //Adds fragment if there is no save instance state
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().add(R.id.movieDetailContainer, new MovieDetailActivityFragment()).commit();
-        }
+        setContentView(R.layout.activity_review);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_movie_detail, menu);
+        getMenuInflater().inflate(R.menu.menu_review, menu);
         return true;
     }
 
@@ -31,7 +27,6 @@ public class MovieDetailActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
 
 
         return super.onOptionsItemSelected(item);

@@ -5,44 +5,34 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-
-import com.squareup.picasso.Picasso;
+import android.widget.Button;
 
 import java.util.ArrayList;
 
-public class MoviePosterAdapter extends ArrayAdapter<Movie> {
-    public ArrayList<Movie> movieList;
+public class TrailerAdapter extends ArrayAdapter<String> {
 
-    public MoviePosterAdapter(Activity context, ArrayList<Movie> movieList) {
+    public TrailerAdapter(Activity context, ArrayList<String> trailerLinks) {
         // Here, we initialize the ArrayAdapter's internal storage for the context and the list.
         // the second argument is used when the ArrayAdapter is populating a single TextView.
         // Because this is a custom adapter for two TextViews and an ImageView, the adapter is not
         // going to use this second argument, so it can be any value. Here, we used 0.
-        super(context, 0, movieList);
+        super(context, 0, trailerLinks);
     }
 
 
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // Gets the Movie object from the ArrayAdapter at the appropriate position
-        Movie movie = getItem(position);
 
         // Adapters recycle views to AdapterViews.
         // If this is a new View object we're getting, then inflate the layout.
         // If not, this view already has the layout inflated from a previous call to getView,
         // and we modify the View widgets as usual.
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.poster_layout, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.trailerlinks, parent, false);
         }
-
-
-        ImageView posterView = (ImageView) convertView.findViewById(R.id.imageView);
-        Picasso.with(getContext()).load(movie.image).into(posterView);
-
-
-
+        Button trailerButton = (Button) convertView.findViewById(R.id.play_trailers);
+        trailerButton.setText("Play Trailer " + (position + 1));
         return convertView;
     }
 }

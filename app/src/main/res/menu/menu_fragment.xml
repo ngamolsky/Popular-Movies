@@ -6,5 +6,7 @@
             app:showAsAction="never" />
         <item android:id="@+id/action_sort_rated" android:title="@string/action_sort_rated"
             app:showAsAction="never" />
+        <item android:id="@+id/action_sort_favorites" android:title="@string/list_favorites"
+            app:showAsAction="never" />
 
     </menu>

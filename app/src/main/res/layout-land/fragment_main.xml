@@ -7,8 +7,8 @@
         android:id="@+id/movieGridView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:numColumns="3"
+        android:numColumns="5"
         android:verticalSpacing="0dp"
         android:horizontalSpacing="0dp"
-         />
+        />
 </FrameLayout>
